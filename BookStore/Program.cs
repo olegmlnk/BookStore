@@ -40,7 +40,7 @@ namespace BookStore
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "BookStore V1");
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "BookStoreV1");
                     c.RoutePrefix = "";
                 });
             }
