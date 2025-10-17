@@ -10,4 +10,8 @@
     <ProjectReference Include="..\BookStore.DataAccess\BookStore.DataAccess.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Scalar.AspNetCore" Version="2.9.0" />
+  </ItemGroup>
+
 </Project>

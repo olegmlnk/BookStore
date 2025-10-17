@@ -1,5 +1,4 @@
-﻿using BookStore.Application.Abstractions;
-using BookStore.DataAccess.Abstractions;
+﻿using BookStore.Core.Abstractions;
 using BookStore.Core.Models;
 
 namespace BookStore.Application.Services

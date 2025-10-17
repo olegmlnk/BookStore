@@ -1,11 +1,11 @@
-﻿using BookStore.Application.Abstractions;
-using BookStore.Contracts;
+﻿using BookStore.Contracts;
+using BookStore.Core.Abstractions;
 using BookStore.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     public class BooksController : ControllerBase
     {
@@ -15,7 +15,7 @@ namespace BookStore.Controllers
             _booksService = booksService;
         }
 
-        [HttpGet("Get")]
+        [HttpGet("get-books")]
         public async Task<ActionResult<List<BooksResponse>>> GetBooks()
         {
             var books = await _booksService.GetAllBooks();
@@ -25,7 +25,7 @@ namespace BookStore.Controllers
             return Ok(response);
         }
 
-        [HttpPost("Create")]
+        [HttpPost("create-book")]
         public async Task<ActionResult<Guid>> CreateBook([FromBody] BooksRequest request)
         {
             var (book, error) = Book.Create(
@@ -44,7 +44,7 @@ namespace BookStore.Controllers
             return Ok(bookId);
         }
 
-        [HttpPut("Update{id:guid}")]
+        [HttpPut("update-book/{id}")]
         public async Task<ActionResult<Guid>> UpdateBook(Guid id, [FromBody] BooksRequest request)
         {
              var bookId = await _booksService.UpdateBook(id, request.Title, request.Description, request.Price);
@@ -52,7 +52,7 @@ namespace BookStore.Controllers
             return Ok(bookId);
         }
 
-        [HttpDelete("Delete{id:guid}")]
+        [HttpDelete("delete-book/{id}")]
         public async Task<ActionResult<Guid>> DeleteBook(Guid id)
         {
             return Ok(await _booksService.DeleteBook(id));

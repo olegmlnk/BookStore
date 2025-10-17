@@ -1,9 +1,9 @@
-using BookStore.Application.Abstractions;
+using BookStore.Core.Abstractions;
 using BookStore.Application.Services;
 using BookStore.DataAccess;
-using BookStore.DataAccess.Abstractions;
 using BookStore.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Scalar.AspNetCore;
 
 namespace BookStore
 {
@@ -13,12 +13,22 @@ namespace BookStore
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", opts =>
+                {
+                    opts.AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials()
+                        .WithOrigins("http://localhost:5174", "https://localhost:5174");
+                });
+            });
+
             // Add services to the container.
 
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
 
             builder.Services.AddOpenApi();
             builder.Services.AddDbContext<BookStoreDbContext>(options =>
@@ -37,15 +47,20 @@ namespace BookStore
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
-                app.UseSwagger();
-                app.UseSwaggerUI(c =>
+                app.MapScalarApiReference(options =>
                 {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "BookStoreV1");
-                    c.RoutePrefix = "";
+                    options.WithTitle("BookStore API");
+                });
+                app.MapGet("/", context =>
+                {
+                    context.Response.Redirect("/scalar/", permanent: false);
+                    return Task.CompletedTask;
                 });
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors("CorsPolicy");
 
             app.UseAuthorization();
 

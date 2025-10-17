@@ -1,42 +1,35 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+:root{
+  --max-w: 1000px;
+  --accent: #2563eb;
+  --danger: #dc2626;
+  --muted: #6b7280;
+  --card: #ffffff;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
+body{font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:#f3f4f6; color:#111827; margin:0}
+.app{max-width:var(--max-w);margin:24px auto;padding:20px}
+header h1{margin:0 0 4px;font-size:1.6rem}
+.muted{color:var(--muted);margin:0}
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+main{display:grid;grid-template-columns:1fr 320px;gap:20px;margin-top:18px}
+.list{background:var(--card);padding:16px;border-radius:8px;box-shadow:0 1px 2px rgba(16,24,40,0.03)}
+.list-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+table{width:100%;border-collapse:collapse}
+th,td{padding:8px 6px;text-align:left;border-bottom:1px solid #eef2f7}
+.actions button{margin-right:8px}
+.danger{background:var(--danger);color:#fff;border:none;padding:6px 8px;border-radius:4px}
+button{background:var(--accent);color:#fff;border:none;padding:8px 10px;border-radius:6px;cursor:pointer}
+button[disabled]{opacity:.6;cursor:not-allowed}
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
+.form-area{background:var(--card);padding:16px;border-radius:8px}
+.book-form{display:flex;flex-direction:column;gap:10px}
+.book-form label{display:flex;flex-direction:column;font-size:0.9rem}
+.book-form input{padding:8px;border:1px solid #e6edf3;border-radius:6px}
+.form-actions{display:flex;gap:8px}
+.form-actions button[type="button"]{background:#6b7280}
 
-.card {
-  padding: 2em;
-}
+.error{color:var(--danger)}
 
-.read-the-docs {
-  color: #888;
-}
+footer{margin-top:18px;color:var(--muted);font-size:0.9rem}
+
+@media (max-width:900px){main{grid-template-columns:1fr;}}
