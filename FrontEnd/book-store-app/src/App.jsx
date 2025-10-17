@@ -95,7 +95,7 @@ function App() {
                 <tr>
                   <th>Title</th>
                   <th>Description</th>
-                  <th>Price</th>
+                  <th>Price (UAH)</th>
                   <th />
                 </tr>
               </thead>
