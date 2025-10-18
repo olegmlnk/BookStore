@@ -93,9 +93,9 @@ function App() {
             <table>
               <thead>
                 <tr>
-                  <th>Title</th>
-                  <th>Description</th>
-                  <th>Price (UAH)</th>
+                  <th>Назва</th>
+                  <th>Опис</th>
+                  <th>Ціна грн)</th>
                   <th />
                 </tr>
               </thead>
