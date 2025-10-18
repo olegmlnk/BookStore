@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:storybook": "echo \"No storybook configured\"",
     "lint": "eslint .",
+    "test:unit": "echo \"No unit tests configured\"",
+    "test:e2e": "echo \"No e2e tests configured\"",
     "preview": "vite preview"
   },
   "dependencies": {
