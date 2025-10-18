@@ -95,7 +95,7 @@ function App() {
                 <tr>
                   <th>Назва</th>
                   <th>Опис</th>
-                  <th>Ціна грн)</th>
+                  <th>Ціна грн</th>
                   <th />
                 </tr>
               </thead>
