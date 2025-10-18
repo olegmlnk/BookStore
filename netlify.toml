@@ -1,7 +1,7 @@
 [build]
   base = "FrontEnd/book-store-app"
-  publish = "FrontEnd/book-store-app/dist"
-  command = "npm ci && npm run build"
+  publish = "dist"
+  command = "if [ -f package-lock.json ]; then npm ci --no-audit --no-fund; else npm install --no-audit --no-fund; fi && npm run build"
 
 [context.production.environment]
   VITE_API_BASE = "https://your-backend.example.com"
