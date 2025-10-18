@@ -18,14 +18,25 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: install modules
-        run: npm ci --no-audit --no-fund
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci --no-audit --no-fund
+          else
+            npm install --no-audit --no-fund
+          fi
+        working-directory: FrontEnd/book-store-app
       - name: build project
         run: npm run build
+        working-directory: FrontEnd/book-store-app
       - name: build storybook
         run: npm run build:storybook
+        working-directory: FrontEnd/book-store-app
       - name: unit test
         run: npm run test:unit
+        working-directory: FrontEnd/book-store-app
       - name: e2e test
         run: npm run test:e2e
+        working-directory: FrontEnd/book-store-app
       - name: lint code
         run: npm run lint
+        working-directory: FrontEnd/book-store-app
