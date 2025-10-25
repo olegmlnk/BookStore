@@ -1,5 +1,8 @@
-﻿using BookStore.Contracts;
-using BookStore.Core.Abstractions;
+﻿using BookStore.Application.Interfaces;
+using BookStore.Application.Query.Filters;
+using BookStore.Application.Query.Paging;
+using BookStore.Application.Query.Sorting;
+using BookStore.Contracts;
 using BookStore.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,30 +19,20 @@ namespace BookStore.Controllers
         }
 
         [HttpGet("get-books")]
-        public async Task<ActionResult<List<BooksResponse>>> GetBooks()
+        public async Task<ActionResult<List<BooksResponse>>> GetBooks(
+            [FromQuery] BookFilter? filter,
+            [FromQuery] SortParams? sortParams,
+            [FromQuery] PageParams? pageParams)
         {
-            var books = await _booksService.GetAllBooks();
-
-            var response = books.Select(b => new BooksResponse(b.Id, b.Title, b.Description, b.Price));
-
-            return Ok(response);
+            var books = await _booksService.GetAllBooks(filter, sortParams, pageParams);
+            
+            return Ok(books);
         }
 
         [HttpPost("create-book")]
-        public async Task<ActionResult<Guid>> CreateBook([FromBody] BooksRequest request)
+        public async Task<ActionResult<Guid>> CreateBook([FromBody] CreateBookDto request)
         {
-            var (book, error) = Book.Create(
-                Guid.NewGuid(),
-                request.Title,
-                request.Description,
-                request.Price);
-
-            if (!string.IsNullOrEmpty(error))
-            {
-                return BadRequest(error);
-            }
-
-            var bookId = await _booksService.CreateBook(book);
+            var bookId = await _booksService.CreateBook(request);
 
             return Ok(bookId);
         }

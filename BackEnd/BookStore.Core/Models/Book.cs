@@ -5,20 +5,15 @@ namespace BookStore.Core.Models
     public class Book
     {
         public const int MAX_TITLE_LENGTH = 250;
-        private Book(Guid id, string title, string description, decimal price)
-        {
-            Id = id;
-            Title = title;
-            Description = description;
-            Price = price;
-        }
+        private Book()
+        { }
 
-        public Guid Id { get; }
-        public string Title { get; } = string.Empty;
-        public string Description { get; } = string.Empty;
-        public decimal Price { get; }
+        public Guid Id { get; private set; }
+        public string Title { get; private set; } = string.Empty;
+        public string Description { get; private set; } = string.Empty;
+        public decimal Price { get; private set; }
 
-        public static (Book Book, string Error) Create(Guid id, string title, string description, decimal price)
+        public static (Book Book, string Error) Create(string title, string description, decimal price)
         {
             var error = string.Empty;
 
@@ -27,7 +22,13 @@ namespace BookStore.Core.Models
                 error = "Title cannot be empty or longer than 250 symbols legnth";
             }
 
-            var book = new Book(id, title, description, price);
+            var book = new Book
+            {
+                Id = Guid.NewGuid(),
+                Title = title,
+                Description = description,
+                Price = price
+            };
 
             return (book, error);
         }

@@ -1,12 +1,12 @@
 using BookStore.Core.Models;
 
-namespace BookStore.Core.Abstractions
+namespace BookStore.DataAccess.Interfaces
 {
     public interface IBooksRepository
     {
-        Task<Guid> Create(Book book);
+        Task<Book> Create(Book book);
         Task<Guid> Delete(Guid id);
-        Task<List<Book>> GetAllAsync();
+        IQueryable<Book> GetQueryable();
         Task<Guid> Update(Guid id, string title, string description, decimal price);
     }
 }

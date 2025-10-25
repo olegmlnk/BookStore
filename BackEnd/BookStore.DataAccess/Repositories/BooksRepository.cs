@@ -1,6 +1,5 @@
-﻿using BookStore.Core.Abstractions;
-using BookStore.DataAccess.Entities;
-using BookStore.Core.Models;
+﻿using BookStore.Core.Models;
+using BookStore.DataAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.DataAccess.Repositories
@@ -13,33 +12,15 @@ namespace BookStore.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task<List<Book>> GetAllAsync()
+        public IQueryable<Book> GetQueryable() => _context.Books;
+
+
+        public async Task<Book> Create(Book book)
         {
-            var bookEntities = await _context.Books
-                .AsNoTracking()
-                .ToListAsync();
-
-            var books = bookEntities
-                .Select(b => Book.Create(b.Id, b.Title, b.Description, b.Price).Book)
-                .ToList();
-
-            return books;
-        }
-
-        public async Task<Guid> Create(Book book)
-        {
-            var bookEntity = new BookEntity
-            {
-                Id = book.Id,
-                Title = book.Title,
-                Description = book.Description,
-                Price = book.Price
-            };
-
-            await _context.Books.AddAsync(bookEntity);
+            await _context.Books.AddAsync(book);
             await _context.SaveChangesAsync();
 
-            return bookEntity.Id;
+            return book;
         }
 
         public async Task<Guid> Update(Guid id, string title, string description, decimal price)

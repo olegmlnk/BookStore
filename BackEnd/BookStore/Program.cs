@@ -1,6 +1,7 @@
-using BookStore.Core.Abstractions;
+using BookStore.Application.Interfaces;
 using BookStore.Application.Services;
 using BookStore.DataAccess;
+using BookStore.DataAccess.Interfaces;
 using BookStore.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
